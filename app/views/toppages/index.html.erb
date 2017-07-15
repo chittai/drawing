@@ -83,6 +83,35 @@
     isDraw = false;
   });
 
+  $('#clear').click(function(e){
+     context.fillStyle = "rgb(255,255,255)";
+     context.fillRect(0,0,canvas.width,canvas.height);
+     $('#judge').prop("disabled",false);
+     $('#load').prop("disabled",false);
+     $('#rank').remove();
+     $(".canvas-score").remove();
+     
+  });
+  
+  $('#load').click(function(){
+  var dataURL = localStorage.getItem('dataURL');
+  if(dataURL){
+    var img = new Image();
+    img.onload = function(){
+      context.drawImage(img,0,0);
+    }
+      img.src = dataURL;
+    alert("画像を読み込みました");
+  }else{
+    alert("保存された画像がありません");
+  }
+});
+
+$('#save').click(function(){
+   localStorage.setItem('dataURL',canvas.toDataURL('image/png'));
+   alert("画像を保存しました");
+});
+
   function drawLine(x1,y1,x2,y2){
     context.beginPath();
     context.moveTo(x1,y1);

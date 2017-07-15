@@ -49,4 +49,45 @@
   
   context.fillStyle = "rgb(255,255,255)";
   context.fillRect(0,0,canvas.width, canvas.height);
+
+  $('#canvas').mousedown(function(e){
+    isDraw = true;
+    sx = e.pageX - $(this).offset().left;
+    sy = e.pageY - $(this).offset().top;
+    console.log(sx,sy);
+    e.preventDefault();
+  });
+  
+  $('#canvas').mouseup(function(){
+    isDraw = false;
+  });
+  
+  $('#canvas').mousemove(function(e){
+    if(isDraw){
+      var ex = e.pageX - $('canvas').offset().left;
+      var ey = e.pageY - $('canvas').offset().top;
+        drawLine(sx,sy,ex,ey);
+        sx = ex;
+        sy = ey;
+    }
+  });
+  
+  $('#canvas').mouseleave(function(e){
+    if(isDraw){
+      var ex = e.pageX - $('canvas').offset().left;
+      var ey = e.pageY - $('canvas').offset().top;
+        drawLine(sx,sy,ex,ey);
+        sx = ex;
+        sy = ey;
+    }
+    isDraw = false;
+  });
+
+  function drawLine(x1,y1,x2,y2){
+    context.beginPath();
+    context.moveTo(x1,y1);
+    context.lineTo(x2,y2);
+    context.stroke();
+  }
+
 </script>

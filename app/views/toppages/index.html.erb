@@ -1,5 +1,52 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to the Microposts</h1>
+<div class="container">
+  <div id="wrapper">
+    <div class="jumbotron">
+      <div class="container">
+        <div class="text-center">
+          <h1>Draw a Cat</h1>
+          <p>
+            push a JUDGE button,score your picture<br>
+            and push a RANK button,rank your picture
+          </p>
+          <p>if you want to restart,you push a CLEAR button.</p>
+        </div>
+      </div>
+    </div>
+    
+    <canvas id="canvas" width="480px" height="320px"></canvas>
+    <div class="btn-toolbar">
+      <div class="btn-group btn-group-lg  tools" role="group">
+        <button type="button" class="btn btn-secondary clear" id="clear">CLEAR</button>
+        <button type="button" class="btn btn-secondary file" id="load">LOAD</button>
+        <button type="button" class="btn btn-secondary file" id="save">SAVE</button>
+      </div>
+    </div>
+  
+    <div class="btn-toolbar" id="afterpush">
+      <button type="button" class="btn btn-lg btn-danger file" id="judge">JUDGE</button>
+    </div>
+    
+    <div id=score>
+    </div>
+    
+    <div class="ranking">
+      <h1>Score Ranking</h1>
+    </div>
+    
+    <div id=score-rank>
+    </div>
+    
   </div>
 </div>
+
+<script type="text/javascript">
+  var sx = 0;
+  var sy = 0;
+  var isDraw = false;
+  
+  var canvas = $('#canvas').get(0);
+  var context =  canvas.getContext('2d');
+  
+  context.fillStyle = "rgb(255,255,255)";
+  context.fillRect(0,0,canvas.width, canvas.height);
+</script>

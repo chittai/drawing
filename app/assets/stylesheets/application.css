@@ -1,15 +1,116 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+@charset "UTF-8";
+
+body {
+  background-color: #BECBAD;
+}
+
+div#wrapper {
+    width: 800px;
+    margin: 0 auto;
+}
+
+canvas {
+  border: 10px solid #999;
+  margin: 0 150px 2px;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+.btn-toolbar {
+    clear: both;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.btn-group button {
+    font-size: 40px;
+    color: #fff;
+    width: 165px;
+}
+
+.btn-toolbar button#judge {
+    font-size: 40px;
+    color: #fff;
+    width: 493px;
+    margin-top: 2px;
+}
+
+#score button {
+    font-size: 40px;
+    color: #fff;
+    width: 493px;
+    margin-top: 3px;
+}
+
+.btn-toolbar button#rank {
+    font-size: 40px;
+    color: #fff;
+    width: 493px;
+    margin-top: 3px;
+}
+
+.clear {
+    border-radius: 0 0 0 0 ;
+}
+
+#clear {
+    background-color: #555;
+    font-size: 10px !important;
+}
+
+#load {
+    background-color: #555;
+    font-size: 10px !important;
+}
+
+#save {
+    background-color: #555;
+    font-size: 10px !important;
+}
+
+#judge {
+    font-size: 10px !important;
+}
+
+#rank {
+    font-size: 10px !important;
+}
+  
+#score {
+    clear: both;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.ranking {
+    text-align: center;
+}
+
+#score {
+    text-align: center;
+}
+
+#score-rank {
+    text-align: center;
+}
+
+#rank1 {
+    display: inline-block;
+}
+
+.rank_number {
+    display: inline-block;    
+}
+
+#score-rank p {
+    color: white;
+    display: inline-block;
+    position: absolute;
+    top: 90px;
+    left: 85px;
+}
+
+.cat_picture {
+    display: inline-block;
+    position: relative;
+}

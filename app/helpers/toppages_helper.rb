@@ -16,4 +16,23 @@ module ToppagesHelper
     p response
     
   end
+  
+  def makeJSON(dataURL)
+    data = {
+      requests:[
+        {
+          image:{
+            content: dataURL
+          },
+          features:{
+            type: "LABEL_DETECTION",
+            maxResults: 100
+          }
+        }
+      ]
+    }.to_json
+    
+    return data
+    
+  end
 end

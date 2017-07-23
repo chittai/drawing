@@ -131,6 +131,19 @@ $('#judge').click(function(){
   
   var data_json = JSON.stringify(data);
   
+  $.ajax({
+    url: '/getresult',
+    type: 'GET',
+    dataType: 'json',
+    async: true,
+    data: {dataURL: dataURL},
+  }).done(function(data){
+    alert("Success")
+  }).fail(function(data){
+    alert("Failure")
+  });
+
+  
 })
 
 

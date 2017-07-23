@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root to: 'toppages#index'
   get 'draw' , to: 'toppages#index'
   
-  get 'getResult' , to: 'toppages#getVisionAPIresult'
+  get 'getresult' , to: 'toppages#getVisionAPIresult'
 
 end

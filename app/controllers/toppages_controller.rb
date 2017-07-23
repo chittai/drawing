@@ -7,7 +7,7 @@ class ToppagesController < ApplicationController
   end
   
   def getVisionAPIresult
-    put "test"
+    data_json = makeJSON(params[:dataURL])
+    p data_json
   end
-  
 end

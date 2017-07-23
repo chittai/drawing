@@ -153,46 +153,36 @@ $('#judge').click(function(){
       $div.appendTo("#score");
     }
     
-    
+    $('#rank').click(function(){
+      alert("Get your Rank !")
+      $('#rank').prop("disabled",true);
+      
+      
+      
+/*
+      firebase.database().ref(Subject).push({
+        filename: "images/cat.png",
+        name: "test",
+        score: 1-Score,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        });
+*/
+        console.log("rank")
+        var metadata = {
+          contentType: 'image/png',
+        };
+        
+//        var imagesRef = firebase.storage().ref().child('images/cat.png')
+        
+//        imagesRef.putString(dataURL,'base64',metadata).then(function(snapshot){
+//          console.log("Uploaded a base64 string !");
+        });
+    });
+
     
   }).fail(function(data){
     alert("Failure")
   });
-  
-
-/*
-  if(resultflag === 0){
-    var data = <%= @result_json %>;
-    var existsCat = false;
-    var $div = $("<div>",{"class": "canvas-score"})
-    
-    $.each(data.responses[0].labelAnnotations,function(i,val){
-      if(existsCat === false && val.description === "cat"){
-        console.log("description: " + val.description);
-        console.log("score: " + val.score);
-        
-        $div.append("<h1> Youe score is " + val.score + "</h1>" );
-        $div.appendTo("#score");
-        existsCat = true;
-        Score = val.score;
-      }
-    });
-    
-    if(existsCat === true){
-      console.log("this is a cat!");
-      var $saveButtonAfterJudge = $("<button>",{
-        "type": "button",
-        "class": "btn btn-lg btn-info file",
-        "id": "rank",
-      }).append("RANK");
-      $saveButtonAfterJudge.appendTo("#score");
-    }else{
-      console.log("this is not a cat!");
-      $div.append("<h1> GetScore : Your picture is not Cat! Score is 0!</h1> ");
-      $div.appendTo("#score");
-    }
-  }
-*/
 })
 
 

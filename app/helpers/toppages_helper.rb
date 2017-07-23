@@ -18,6 +18,10 @@ module ToppagesHelper
     return data
   end
   
+  def create
+    
+  end
+  
   def getJSONfromVisionAPI(data_json)
     require 'net/http'
     api_key= ENV['GOOGLE_VISION_API_KEY']

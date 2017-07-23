@@ -1,23 +1,6 @@
 module ToppagesHelper
-  def getVisionAPIresult(data)
-    require 'net/http'
-    api_key= @google_vision_api_key
-    
-    uri = URI.parse "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
-    
-    request = Net::HTTP::Post.new(uri.request_uri, initheader = {'Content-Type' => 'application/json'})
-    request.body = data
-    
-    response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
-        http.request(request)
-    end
-    
-    p "response"
-    p response
-    
-  end
   
-  def makeJSON(dataURL)
+  def makeJSONforPOST(dataURL)
     data = {
       requests:[
         {
@@ -33,6 +16,26 @@ module ToppagesHelper
     }.to_json
     
     return data
-    
   end
+  
+  def getJSONfromVisionAPI(data_json)
+    require 'net/http'
+    api_key= ENV['GOOGLE_VISION_API_KEY']
+    
+    uri = URI.parse "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
+    
+    request = Net::HTTP::Post.new(uri.request_uri, initheader = {'Content-Type' => 'application/json'})
+    request.body = data_json
+    
+    response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+        http.request(request)
+    end
+    
+    body = JSON.parse(response.body)
+    return body
+    
+    #responses = body['responses']
+    #return responses
+  end
+  
 end

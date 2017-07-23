@@ -115,35 +115,84 @@ $('#save').click(function(){
 $('#judge').click(function(){
   var dataURL = canvas.toDataURL('image/png').split(",")[1];;
 
-  var data = {
-    requests:[
-      {
-        image:{
-          content: dataURL
-        },
-        features:{
-          type: "LABEL_DETECTION",
-          maxResults: 100
-        }
-      }
-    ]
-  }
-  
-  var data_json = JSON.stringify(data);
-  
   $.ajax({
     url: '/getresult',
     type: 'GET',
     dataType: 'json',
-    async: true,
+    async: false,
     data: {dataURL: dataURL},
   }).done(function(data){
     alert("Success")
+    
+    var existsCat = false;
+    var $div = $("<div>",{"class": "canvas-score"});
+    
+    $.each(data.responses[0].labelAnnotations,function(i,val){
+      if(existsCat === false && val.description === "cat"){
+        console.log("description: " + val.description);
+        console.log("score: " + val.score);
+        
+        $div.append("<h1> Youe score is " + val.score + "</h1>" );
+        $div.appendTo("#score");
+        existsCat = true;
+        Score = val.score;
+      }
+    });
+    
+    if(existsCat === true){
+      console.log("this is a cat!");
+      var $saveButtonAfterJudge = $("<button>",{
+        "type": "button",
+        "class": "btn btn-lg btn-info file",
+        "id": "rank",
+      }).append("RANK");
+      $saveButtonAfterJudge.appendTo("#score");
+    }else{
+      console.log("this is not a cat!");
+      $div.append("<h1> GetScore : Your picture is not Cat! Score is 0!</h1> ");
+      $div.appendTo("#score");
+    }
+    
+    
+    
   }).fail(function(data){
     alert("Failure")
   });
-
   
+
+/*
+  if(resultflag === 0){
+    var data = <%= @result_json %>;
+    var existsCat = false;
+    var $div = $("<div>",{"class": "canvas-score"})
+    
+    $.each(data.responses[0].labelAnnotations,function(i,val){
+      if(existsCat === false && val.description === "cat"){
+        console.log("description: " + val.description);
+        console.log("score: " + val.score);
+        
+        $div.append("<h1> Youe score is " + val.score + "</h1>" );
+        $div.appendTo("#score");
+        existsCat = true;
+        Score = val.score;
+      }
+    });
+    
+    if(existsCat === true){
+      console.log("this is a cat!");
+      var $saveButtonAfterJudge = $("<button>",{
+        "type": "button",
+        "class": "btn btn-lg btn-info file",
+        "id": "rank",
+      }).append("RANK");
+      $saveButtonAfterJudge.appendTo("#score");
+    }else{
+      console.log("this is not a cat!");
+      $div.append("<h1> GetScore : Your picture is not Cat! Score is 0!</h1> ");
+      $div.appendTo("#score");
+    }
+  }
+*/
 })
 
 

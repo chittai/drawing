@@ -113,6 +113,10 @@ $('#save').click(function(){
 });
 
 $('#judge').click(function(){
+  
+  $('#judge').prop("disabled",true);
+  $('#load').prop("disabled",true);
+  
   var dataURL = canvas.toDataURL('image/png').split(",")[1];
   
   dataURLlength = dataURL.length
@@ -179,9 +183,10 @@ $('#judge').click(function(){
         url: '/create',
         type: 'GET',
         //dataType: 'json',
-        async: true,
+        async: false,
         data: {name: "test",filename: "test", score: Score,},
       }).done(function(data){
+          drawRanking()
       }).fail(function(data){
         alert("Failure")
       });
@@ -198,46 +203,44 @@ $('#judge').click(function(){
     context.stroke();
   }
   
-$(document).ready(function() {
-  
-  $.ajax({
-    url: '/getdata',
-    type: 'GET',
-    dataType: 'text',
-    async: true,
-  }).done(function(data){
-    var score_rank = 1;
-    
-    data = JSON.parse(data)
-    
-    console.log(data)
-    
-    $("#score-rank").empty()
-    
-    $.each(data,function(index,val) {
-      var $div = $("<div>",{"class": "rank"+ score_rank});
+  function drawRanking(){
+    $.ajax({
+      url: '/getdata',
+      type: 'GET',
+      dataType: 'text',
+      async: true,
+    }).done(function(data){
+      data = JSON.parse(data)
+      var score_rank = 1;
+      $("#score-rank").empty()
       
-      $div.append($("<div>",{
-        "class":"cat_picture",
-      }).append($("<img>",{
-        src: "assets/cat.png",
-        width: 176,
-        height: 176,
-      })).append(
-        "<p>" + score_rank + "</p>"
-        )).append($("<div>",{
-        "class": "rank_number",
-      }).append(
-          "<h3>" + val + "</h3>"
-          ));
-          
-      $div.appendTo("#score-rank");
-    score_rank++;
-    })
-    
-  }).fail(function(data){
-    alert("Failure")
-  });
+      $.each(data,function(index,val) {
+        var $div = $("<div>",{"class": "rank"+ score_rank});
+        
+        $div.append($("<div>",{
+          "class":"cat_picture",
+        }).append($("<img>",{
+          src: "assets/cat.png",
+          width: 176,
+          height: 176,
+        })).append(
+          "<p>" + score_rank + "</p>"
+          )).append($("<div>",{
+          "class": "rank_number",
+        }).append(
+            "<h3>" + val + "</h3>"
+            ));
+            
+        $div.appendTo("#score-rank");
+      score_rank++;
+      })
+    }).fail(function(data){
+      alert("Failure")
+    });
+  }
+  
+$(document).ready(function() {
+  drawRanking()
 })
 
 </script>

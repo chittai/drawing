@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   
   get 'create' , to: 'toppages#create'
   
-  get 'getresult' , to: 'toppages#getVisionAPIresult'
+  #get 'getresult' , to: 'toppages#getVisionAPIresult'
+  post 'getresult' , to: 'toppages#getVisionAPIresult'
 
 end

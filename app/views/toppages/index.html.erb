@@ -113,18 +113,43 @@ $('#save').click(function(){
 });
 
 $('#judge').click(function(){
-  var dataURL = canvas.toDataURL('image/png').split(",")[1];;
-
+  var dataURL = canvas.toDataURL('image/png').split(",")[1];
+  
+  dataURLlength = dataURL.length
+  
+  var data = {
+    requests:[
+      {
+        image:{
+          content: dataURL
+        },
+        features:{
+          type: "LABEL_DETECTION",
+          maxResults: 100
+        }
+      }
+    ]
+  }
+  
+  var data_json = JSON.stringify(data);
+  
+  /*
+  var data1 = dataURL.substr(0,8000)
+  var data2 = dataURL.substr(8000)
+  */
+  
+  console.log(dataURL.length)
+  
   $.ajax({
     url: '/getresult',
-    type: 'GET',
+    type: 'POST',
     dataType: 'json',
-    async: false,
-    data: {dataURL: dataURL},
+    contentType: 'application/json',
+    data: data_json
   }).done(function(data){
     alert("Success")
-    
     var existsCat = false;
+    
     var $div = $("<div>",{"class": "canvas-score"});
     
     $.each(data.responses[0].labelAnnotations,function(i,val){
@@ -157,7 +182,17 @@ $('#judge').click(function(){
       alert("Get your Rank !")
       $('#rank').prop("disabled",true);
       
-      
+      $.ajax({
+        url: '/create',
+        type: 'GET',
+        //dataType: 'json',
+        async: true,
+        data: {name: "test",filename: "test", score: 1-Score,},
+      }).done(function(data){
+        alert("Success")
+      }).fail(function(data){
+        alert("Failure")
+      });
       
 /*
       firebase.database().ref(Subject).push({
@@ -176,10 +211,7 @@ $('#judge').click(function(){
         
 //        imagesRef.putString(dataURL,'base64',metadata).then(function(snapshot){
 //          console.log("Uploaded a base64 string !");
-        });
-    });
-
-    
+    })
   }).fail(function(data){
     alert("Failure")
   });

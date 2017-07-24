@@ -133,13 +133,6 @@ $('#judge').click(function(){
   
   var data_json = JSON.stringify(data);
   
-  /*
-  var data1 = dataURL.substr(0,8000)
-  var data2 = dataURL.substr(8000)
-  */
-  
-  console.log(dataURL.length)
-  
   $.ajax({
     url: '/getresult',
     type: 'POST',
@@ -187,36 +180,16 @@ $('#judge').click(function(){
         type: 'GET',
         //dataType: 'json',
         async: true,
-        data: {name: "test",filename: "test", score: 1-Score,},
+        data: {name: "test",filename: "test", score: Score,},
       }).done(function(data){
-        alert("Success")
       }).fail(function(data){
         alert("Failure")
       });
-      
-/*
-      firebase.database().ref(Subject).push({
-        filename: "images/cat.png",
-        name: "test",
-        score: 1-Score,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        });
-*/
-        console.log("rank")
-        var metadata = {
-          contentType: 'image/png',
-        };
-        
-//        var imagesRef = firebase.storage().ref().child('images/cat.png')
-        
-//        imagesRef.putString(dataURL,'base64',metadata).then(function(snapshot){
-//          console.log("Uploaded a base64 string !");
     })
   }).fail(function(data){
     alert("Failure")
   });
 })
-
 
   function drawLine(x1,y1,x2,y2){
     context.beginPath();
@@ -224,5 +197,47 @@ $('#judge').click(function(){
     context.lineTo(x2,y2);
     context.stroke();
   }
+  
+$(document).ready(function() {
+  
+  $.ajax({
+    url: '/getdata',
+    type: 'GET',
+    dataType: 'text',
+    async: true,
+  }).done(function(data){
+    var score_rank = 1;
+    
+    data = JSON.parse(data)
+    
+    console.log(data)
+    
+    $("#score-rank").empty()
+    
+    $.each(data,function(index,val) {
+      var $div = $("<div>",{"class": "rank"+ score_rank});
+      
+      $div.append($("<div>",{
+        "class":"cat_picture",
+      }).append($("<img>",{
+        src: "assets/cat.png",
+        width: 176,
+        height: 176,
+      })).append(
+        "<p>" + score_rank + "</p>"
+        )).append($("<div>",{
+        "class": "rank_number",
+      }).append(
+          "<h3>" + val + "</h3>"
+          ));
+          
+      $div.appendTo("#score-rank");
+    score_rank++;
+    })
+    
+  }).fail(function(data){
+    alert("Failure")
+  });
+})
 
 </script>

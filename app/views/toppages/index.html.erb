@@ -1,48 +1,38 @@
-<div class="container">
-  <div id="wrapper">
-    <div class="raw">
-      <div class="col-sm-12">
-        <div class="jumbotron">
-          <div class="text-center">
-            <h1>Draw a Cat</h1>
-            <p>
-              push a JUDGE button,score your picture<br>
-              and push a RANK button,rank your picture
-            </p>
-            <p>if you want to restart,you push a CLEAR button.</p>
-          </div>
-        </div>
-      </div>
+<div width="370px">
+  <div class="jumbotron">
+    <div class="text-center">
+      <h1>Draw a Cat</h1>
+      <p>
+        push a JUDGE button,score your picture<br>
+        and push a RANK button,rank your picture<br>
+        if you want to restart,you push a CLEAR button.
+      </p>
     </div>
-    
-    <canvas id="canvas" width="480px" height="320px"></canvas>
-    <div class="btn-toolbar">
-      <div class="btn-group btn-group-lg  tools" role="group">
-        <button type="button" class="btn btn-secondary clear" id="clear">CLEAR</button>
-        <button type="button" class="btn btn-secondary file" id="load">LOAD</button>
-        <button type="button" class="btn btn-secondary file" id="save">SAVE</button>
-      </div>
-    </div>
-  
-    
-    <div class="btn-toolbar" id="afterpush">
-      <button type="button" class="btn btn-lg btn-danger file" id="judge">JUDGE</button>
-    </div>
-    
-    <div id=score>
-    </div>
-    
-    <div class="ranking">
-      <h1>Score Ranking</h1>
-    </div>
-    
-    <div id=score-rank>
-    </div>
-    
   </div>
 </div>
 
+<canvas id="canvas" width="345px" height="345px"></canvas>
+    
+
+<button type="button" class="btn btn-primary btn-block clear file" id="clear">CLEAR</button>
+<button type="button" class="btn btn-primary btn-block file" id="load">LOAD</button>
+<button type="button" class="btn btn-primary btn-block file" id="save">SAVE</button>
+<button type="button" class="btn btn-lg btn-block btn-danger file" id="judge">JUDGE</button>
+    
+<div id=score>
+</div>
+    
+<div class="ranking">
+  <h1>Score Ranking</h1>
+</div>
+    
+<div id=score-rank>
+</div>
+
+
+
 <script type="text/javascript">
+
   var sx = 0;
   var sy = 0;
   var isDraw = false;
@@ -53,6 +43,24 @@
   context.fillStyle = "rgb(255,255,255)";
   context.fillRect(0,0,canvas.width, canvas.height);
 
+  $('#canvas').bind('touchstart',function() {
+    isDraw = true;
+    sx = event.changedTouches[0].pageX - $(this).offset().left;
+    sy = event.changedTouches[0].pageY - $(this).offset().top;
+    console.log(sx,sy);
+    event.preventDefault();
+  });
+  
+    $('#canvas').bind('touchmove',function(){
+    if(isDraw){
+      var ex = event.changedTouches[0].pageX - $('canvas').offset().left;
+      var ey = event.changedTouches[0].pageY - $('canvas').offset().top;
+        drawLine(sx,sy,ex,ey);
+        sx = ex;
+        sy = ey;
+    }
+  });
+  
   $('#canvas').mousedown(function(e){
     isDraw = true;
     sx = e.pageX - $(this).offset().left;
@@ -168,7 +176,7 @@ $('#judge').click(function(){
       console.log("this is a cat!");
       var $saveButtonAfterJudge = $("<button>",{
         "type": "button",
-        "class": "btn btn-lg btn-info file",
+        "class": "btn btn-lg btn-block btn-info file",
         "id": "rank",
       }).append("RANK");
       $saveButtonAfterJudge.appendTo("#score");

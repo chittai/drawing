@@ -37,7 +37,7 @@
   var canvas = $('#canvas').get(0);
   var context =  canvas.getContext('2d');
 
-  sizing();
+  //sizing();
 
   $('#canvas').bind('touchstart',function() {
     isDraw = true;
@@ -266,8 +266,8 @@ $(document).ready(function() {
   drawRanking();
 })
 
-  window.addEventListener('resize',function(){
-    sizing();
-  })
+window.addEventListener('resize',function(){
+  sizing();
+})
 
 </script>

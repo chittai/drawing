@@ -12,7 +12,6 @@
 </div>
 
 <canvas id="canvas"></canvas>
-    
 
 <button type="button" class="btn btn-primary btn-block clear file" id="clear">CLEAR</button>
 <button type="button" class="btn btn-primary btn-block file" id="load">LOAD</button>
@@ -25,11 +24,9 @@
 <div class="ranking">
   <h1>Score Ranking</h1>
 </div>
-    
+
 <div id=score-rank>
 </div>
-
-
 
 <script type="text/javascript">
 
@@ -39,12 +36,8 @@
 
   var canvas = $('#canvas').get(0);
   var context =  canvas.getContext('2d');
-  
-  $( '#canvas' ).get( 0 ).width = $( '.container' ).width();
-  $( '#canvas' ).get( 0 ).height = $( '.container' ).height()*3/5;
 
-  context.fillStyle = "rgb(255,255,255)";
-  context.fillRect(0,0,canvas.width, canvas.height);
+  sizing();
 
   $('#canvas').bind('touchstart',function() {
     isDraw = true;
@@ -217,6 +210,17 @@ $('#judge').click(function(){
     context.stroke();
   }
   
+  function sizing(){
+    $( '#canvas' ).get( 0 ).width = $( '.container' ).width();
+    $( '#canvas' ).get( 0 ).height = $( window ).height()/2;
+    
+    console.log($( '.container' ).width())
+    console.log($( '.container' ).height())
+    
+    context.fillStyle = "rgb(255,255,255)";
+    context.fillRect(0,0,canvas.width, canvas.height);
+  }
+  
   function drawRanking(){
     $.ajax({
       url: '/getdata',
@@ -253,7 +257,11 @@ $('#judge').click(function(){
   }
   
 $(document).ready(function() {
-  drawRanking()
+  drawRanking();
 })
+
+  window.addEventListener('resize',function(){
+    sizing();
+  })
 
 </script>

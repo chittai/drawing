@@ -1,4 +1,4 @@
-<div width="370px">
+<div>
   <div class="jumbotron">
     <div class="text-center">
       <h1>Draw a Cat</h1>
@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<canvas id="canvas" width="345px" height="345px"></canvas>
+<canvas id="canvas"></canvas>
     
 
 <button type="button" class="btn btn-primary btn-block clear file" id="clear">CLEAR</button>
@@ -40,6 +40,9 @@
   var canvas = $('#canvas').get(0);
   var context =  canvas.getContext('2d');
   
+  $( '#canvas' ).get( 0 ).width = $( '.container' ).width();
+  $( '#canvas' ).get( 0 ).height = $( '.container' ).height()*3/5;
+
   context.fillStyle = "rgb(255,255,255)";
   context.fillRect(0,0,canvas.width, canvas.height);
 

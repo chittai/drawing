@@ -213,12 +213,18 @@ $('#judge').click(function(){
   function sizing(){
     $( '#canvas' ).get( 0 ).width = $( '.container' ).width();
     $( '#canvas' ).get( 0 ).height = $( window ).height()/2;
+    var img = new Image();    
     
-    console.log($( '.container' ).width())
-    console.log($( '.container' ).height())
+    catimage = canvas.toDataURL('image/png');
     
     context.fillStyle = "rgb(255,255,255)";
     context.fillRect(0,0,canvas.width, canvas.height);
+    
+
+    img.onload = function(){
+      context.drawImage(img,0,0);
+    }
+      img.src = catimage;
   }
   
   function drawRanking(){
